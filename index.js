@@ -41,13 +41,7 @@ function prettifyObject(ast, indentLevel) {
   for (let i = 0; i < ast.children.length; i++) {
     const child = ast.children[i]
     pretty += '\n' + _spaces(indentLevel) + child.key.raw + ': '
-
-    // TODO: null
-    if (child.value.type === 'Literal') {
-      pretty += child.value.raw
-    } else if (child.value.type === 'Object') {
-      pretty += prettifyObject(child.value, indentLevel)
-    }
+    pretty += prettifyObject(child.value, indentLevel)
 
     const isLast = i === ast.children.length - 1
     if (!isLast) {

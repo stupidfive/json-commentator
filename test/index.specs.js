@@ -133,4 +133,17 @@ describe('Comment JSON', function () {
         '}'
     )
   });
+
+  it('should prettify object containing array', () => {
+    assertComment(
+        '{"names":["Tom","Thomas"]}',
+        '' +
+        '{\n' +
+        '  "names": [\n' +
+        '    "Tom",\n' +
+        '    "Thomas"\n' +
+        '  ]\n' +
+        '}'
+    )
+  });
 })

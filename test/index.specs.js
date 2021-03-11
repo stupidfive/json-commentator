@@ -1,13 +1,7 @@
 import chai from 'chai';
-import {comment, getOne} from "../index.js";
+import {comment} from "../index.js";
 
 let expect = chai.expect;
-
-describe('index', () => {
-  it('should return 1 if get 1', () => {
-    expect(getOne()).to.equal(1)
-  });
-})
 
 function assertComment(input, expected) {
   expect(comment(input)).to.equal(expected)

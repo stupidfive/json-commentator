@@ -1,9 +1,5 @@
 import parse from 'json-to-ast';
 
-export function getOne() {
-  return 1
-}
-
 export function comment(json) {
   const settings = {
     loc: false,

@@ -15,8 +15,14 @@ export function comment(json) {
 
   let pretty = ''
   pretty += "{"
-  for (const child of ast.children) {
+  for (let i = 0; i < ast.children.length; i++) {
+    const child = ast.children[i]
     pretty += '\n  ' + child.key.raw + ': ' + child.value.raw
+
+    const isLast = i === ast.children.length - 1
+    if (!isLast) {
+      pretty += ','
+    }
   }
   if (ast.children.length !== 0) {
     pretty += "\n"

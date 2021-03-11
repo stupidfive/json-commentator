@@ -17,6 +17,7 @@ describe('Comment JSON', function () {
   it('should satisfy base case', () => {
     assertComment('{}', '{}')
   });
+
   it('should prettify', () => {
     assertComment(
         '{"id":123}',
@@ -25,5 +26,17 @@ describe('Comment JSON', function () {
         '  "id": 123\n' +
         '}'
     )
+  });
+
+  it('should prettify two keys', () => {
+    assertComment(
+        '{"id":123, "name":"john-doe"}',
+        '' +
+        '{\n' +
+        '  "id": 123,\n' +
+        '  "name": "john-doe"\n' +
+        '}'
+    )
+
   });
 })

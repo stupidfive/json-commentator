@@ -31,6 +31,12 @@ function _spaces(indentLevel) {
 
 function _prettifyArray(ast, indentLevel, path, rule) {
   let pretty = "["
+
+  const comment = rule(path, ast.value)
+  if (comment != null) {
+    pretty += ' // ' + comment
+  }
+
   indentLevel++
   for (let i = 0; i < ast.children.length; i++) {
     const child = ast.children[i]
@@ -42,12 +48,14 @@ function _prettifyArray(ast, indentLevel, path, rule) {
     if (!isLast) {
       pretty += ','
     }
-    // TODO: add comment
-    // pretty += ' // ' + currentPath.join('.')
+
+    // TODO: extract comment
     if (rule != null) {
       let comment = rule(currentPath, child.value);
       if (comment != null) {
-        pretty += ' // ' + comment
+        if (child.type === 'Literal') {
+          pretty += ' // ' + comment
+        }
       }
     }
   }
@@ -61,6 +69,12 @@ function _prettifyArray(ast, indentLevel, path, rule) {
 
 function _prettyObject(ast, indentLevel, path, rule) {
   let pretty = '{'
+
+  const comment = rule(path, ast.value)
+  if (comment != null) {
+    pretty += ' // ' + comment
+  }
+
   indentLevel++
   for (let i = 0; i < ast.children.length; i++) {
     const child = ast.children[i]
@@ -72,12 +86,14 @@ function _prettyObject(ast, indentLevel, path, rule) {
     if (!isLast) {
       pretty += ','
     }
+
     // TODO: add comment
-    // pretty += ' // ' + currentPath.join('.')
     if (rule != null) {
       const comment = rule(currentPath, child.value)
       if (comment != null) {
-        pretty += ' // ' + comment
+        if (child.type === 'Literal' || child.type === 'Property') {
+          pretty += ' // ' + comment
+        }
       }
     }
   }

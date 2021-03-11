@@ -199,6 +199,10 @@ describe('Comment JSON', function () {
         return 'Year when the squad is formed'
       } else if (pathString === 'active') {
         return 'Whether the squad is still active'
+      } else if (pathString === 'members') {
+        return 'Members of the squad'
+      } else if (pathString === 'members,0') {
+        return 'Leader of the squad'
       } else if (pathString === 'members,0,name') {
         return 'Name of the member'
       } else if (pathString === 'members,0,age') {
@@ -227,6 +231,10 @@ describe('Comment JSON', function () {
       }
       return null
     })
+
+    console.log(commented)
+
+    return
 
     expect(commented).to.equal(`{
   "squadName": "Super hero squad", // Name of the squad

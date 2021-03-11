@@ -20,7 +20,7 @@ export function comment(json) {
     if (child.value.type === 'Literal') {
       pretty += child.value.raw
     } else if (child.value.type === 'Object') {
-      pretty += prettify(child.value, 1)
+      pretty += prettifyObject(child.value, 1)
     }
 
     const isLast = i === ast.children.length - 1
@@ -36,7 +36,7 @@ export function comment(json) {
   return pretty
 }
 
-function prettify(ast, indentLevel) {
+function prettifyObject(ast, indentLevel) {
   let pretty = ''
   pretty += "{"
   for (let i = 0; i < ast.children.length; i++) {
@@ -46,7 +46,7 @@ function prettify(ast, indentLevel) {
     if (child.value.type === 'Literal') {
       pretty += child.value.raw
     } else if (child.value.type === 'Object') {
-      pretty += prettify(child.value, indentLevel + 1)
+      pretty += prettifyObject(child.value, indentLevel + 1)
     }
 
     const isLast = i === ast.children.length - 1

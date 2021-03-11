@@ -53,4 +53,23 @@ describe('Comment JSON', function () {
         '}'
     )
   });
+
+  it('should prettify three layer nested object', () => {
+    assertComment(
+        '{"id":123,"name":"john-doe","address":{"country":"US","state":"CA","lines":{"line1":"404 Room","line2":"1600 Avenue NW"}}}',
+        '' +
+        '{\n' +
+        '  "id": 123,\n' +
+        '  "name": "john-doe",\n' +
+        '  "address": {\n' +
+        '    "country": "US",\n' +
+        '    "state": "CA",\n' +
+        '    "lines": {\n' +
+        '      "line1": "404 Room",\n' +
+        '      "line2": "1600 Avenue NW"\n' +
+        '    }\n' +
+        '  }\n' +
+        '}'
+    )
+  });
 })

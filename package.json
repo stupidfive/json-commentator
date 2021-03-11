@@ -1,6 +1,6 @@
 {
   "name": "json-commentator",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Add document to JSON with ease",
   "main": "index.js",
   "scripts": {

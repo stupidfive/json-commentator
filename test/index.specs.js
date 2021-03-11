@@ -122,6 +122,15 @@ describe('Comment JSON', function () {
         '  }\n' +
         ']'
     )
+  });
 
+  it('should prettify object containing null', () => {
+    assertComment(
+        '{"name":null}',
+        '' +
+        '{\n' +
+        '  "name": null\n' +
+        '}'
+    )
   });
 })

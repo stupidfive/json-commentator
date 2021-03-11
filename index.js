@@ -1,6 +1,6 @@
 import parse from 'json-to-ast';
 
-export function comment(json, rule) {
+export function comment(json, rule = () => null) {
   const settings = {
     loc: false,
   }
@@ -88,12 +88,10 @@ function _prettyObject(ast, indentLevel, path, rule) {
     }
 
     // TODO: add comment
-    if (rule != null) {
-      const comment = rule(currentPath, child.value)
-      if (comment != null) {
-        if (child.type === 'Literal' || child.type === 'Property') {
-          pretty += ' // ' + comment
-        }
+    const comment = rule(currentPath, child.value)
+    if (comment != null) {
+      if (child.type === 'Literal' || child.type === 'Property' && child.value.type !== 'Array') {
+        pretty += ' // ' + comment
       }
     }
   }

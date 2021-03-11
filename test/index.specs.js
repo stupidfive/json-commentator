@@ -232,26 +232,22 @@ describe('Comment JSON', function () {
       return null
     })
 
-    console.log(commented)
-
-    return
-
     expect(commented).to.equal(`{
   "squadName": "Super hero squad", // Name of the squad
   "homeTown": "Metro City", // Where the squad is coming from
   "formed": 2016, // Year when the squad is formed
   "secretBase": "Super tower",
   "active": true, // Whether the squad is still active
-  "members": [
-    {
+  "members": [ // Members of the squad
+    { // Leader of the squad
       "name": "Molecule Man", // Name of the member
       "age": 29, // Age of the member
       "secretIdentity": "Dan Jukes", // Secret identity of the member
-      "powers": [
+      "powers": [ // Special powers of the member
         "Radiation resistance", // Receives less damage from radiation
         "Turning tiny", // Shrink in size drastically, harder to be spotted by the enemy
         "Radiation blast" // A power blast that deal damage to enemies near him
-      ] // Special powers of the member
+      ]
     },
     {
       "name": "Madame Uppercut",

@@ -189,6 +189,35 @@ describe('Comment JSON', function () {
     }
   ]
 }`
-    console.log(comment(json));
+    const commented = comment(json, function (path, value) {
+      const pathString = path.join('.')
+      if (pathString === 'squadName') {
+        return 'Name of the squad'
+      } else if (pathString === 'homeTown') {
+        return 'Where the squad is coming from'
+      } else if (pathString === 'formed') {
+        return 'Year when the squad is formed'
+      } else if (pathString === 'active') {
+        return 'Whether the squad is still active'
+      } else if (pathString === 'members.0.name') {
+        return 'Name of the member'
+      } else if (pathString === 'members.0.age') {
+        return 'Age of the member'
+      } else if (pathString === 'members.0.secretIdentity') {
+        return 'Secret identity of the member'
+      } else if (pathString === 'members.0.powers') {
+        return 'Special powers of the member'
+      } else if (pathString === 'members.0.powers.0') {
+        // TODO: better matcher
+        return 'Radiation incurs less damage'
+      } else if (pathString === 'members.0.powers.1') {
+        return 'Shrink in size drastically, harder to be spotted by the enemy'
+      } else if (pathString === 'members.0.powers.2') {
+        return 'A power blast that deal damage to enemies near him'
+      }
+      return null
+    })
+
+    console.log(commented)
   });
 })

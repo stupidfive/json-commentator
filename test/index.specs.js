@@ -91,4 +91,21 @@ describe('Comment JSON', function () {
         ']'
     )
   });
+
+  it('should prettify nested array', () => {
+    assertComment(
+        '[[0,1],[2,3]]',
+        '' +
+        '[\n' +
+        '  [\n' +
+        '    0,\n' +
+        '    1\n' +
+        '  ],\n' +
+        '  [\n' +
+        '    2,\n' +
+        '    3\n' +
+        '  ]\n' +
+        ']'
+    )
+  });
 })

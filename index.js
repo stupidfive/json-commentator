@@ -19,9 +19,10 @@ function prettifyObject(ast, indentLevel) {
       const child = ast.children[i]
       pretty += '\n' + _spaces(indentLevel)
 
-      // TODO: nested array
       if (child.type === 'Object') {
         pretty += prettifyObject(child.value, indentLevel)
+      } else if (child.type === 'Array') {
+        pretty += prettifyObject(child, indentLevel)
       } else {
         pretty += child.raw
       }

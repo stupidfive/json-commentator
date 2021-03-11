@@ -12,18 +12,16 @@ export function comment(json) {
 }
 
 function prettifyObject(ast, indentLevel) {
+  if (ast.type === 'Literal') {
+    return ast.raw
+  }
   if (ast.type === 'Array') {
     let pretty = "["
     indentLevel++
     for (let i = 0; i < ast.children.length; i++) {
       const child = ast.children[i]
       pretty += '\n' + _spaces(indentLevel)
-
-      if (child.type === 'Object' || child.type === 'Array') {
-        pretty += prettifyObject(child, indentLevel)
-      } else {
-        pretty += child.raw
-      }
+      pretty += prettifyObject(child, indentLevel)
 
       const isLast = i === ast.children.length - 1
       if (!isLast) {

@@ -9,15 +9,19 @@ export function comment(json) {
     loc: false,
   }
 
-  console.log(JSON.stringify(parse(json, settings)));
-
   const ast = parse(json, settings)
 
   let pretty = ''
   pretty += "{"
   for (let i = 0; i < ast.children.length; i++) {
     const child = ast.children[i]
-    pretty += '\n  ' + child.key.raw + ': ' + child.value.raw
+    pretty += '\n  ' + child.key.raw + ': '
+
+    if (child.value.type === 'Literal') {
+      pretty += child.value.raw
+    } else if (child.value.type === 'Object') {
+      pretty += prettify(child.value, 1)
+    }
 
     const isLast = i === ast.children.length - 1
     if (!isLast) {
@@ -30,4 +34,37 @@ export function comment(json) {
   pretty += '}'
 
   return pretty
+}
+
+function prettify(ast, indentLevel) {
+  let pretty = ''
+  pretty += "{"
+  for (let i = 0; i < ast.children.length; i++) {
+    const child = ast.children[i]
+    pretty += '\n' + _spaces(indentLevel + 1) + child.key.raw + ': '
+
+    if (child.value.type === 'Literal') {
+      pretty += child.value.raw
+    } else if (child.value.type === 'Object') {
+      pretty += prettify(child.value, indentLevel + 1)
+    }
+
+    const isLast = i === ast.children.length - 1
+    if (!isLast) {
+      pretty += ','
+    }
+  }
+  if (ast.children.length !== 0) {
+    pretty += "\n"
+  }
+  pretty += _spaces(indentLevel) + '}'
+  return pretty
+}
+
+function _spaces(indentLevel) {
+  let spaces = ''
+  for (let i = 0; i < indentLevel; i++) {
+    spaces += '  '
+  }
+  return spaces
 }

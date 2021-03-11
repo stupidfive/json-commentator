@@ -37,6 +37,20 @@ describe('Comment JSON', function () {
         '  "name": "john-doe"\n' +
         '}'
     )
+  });
 
+  it('should prettify nested object', () => {
+    assertComment(
+        '{"id":123,"name":"john-doe","address":{"country":"US","state":"CA"}}',
+        '' +
+        '{\n' +
+        '  "id": 123,\n' +
+        '  "name": "john-doe",\n' +
+        '  "address": {\n' +
+        '    "country": "US",\n' +
+        '    "state": "CA"\n' +
+        '  }\n' +
+        '}'
+    )
   });
 })

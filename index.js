@@ -12,8 +12,7 @@ export function comment(json) {
 }
 
 function prettifyObject(ast, indentLevel) {
-  let pretty = ''
-  pretty += "{"
+  let pretty = "{"
   indentLevel++
   for (let i = 0; i < ast.children.length; i++) {
     const child = ast.children[i]

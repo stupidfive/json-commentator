@@ -76,4 +76,19 @@ describe('Comment JSON', function () {
         ']'
     )
   });
+
+  it('should prettify long array', () => {
+    assertComment(
+        '["a",42,3.14,null,true,false]',
+        '' +
+        '[\n' +
+        '  "a",\n' +
+        '  42,\n' +
+        '  3.14,\n' +
+        '  null,\n' +
+        '  true,\n' +
+        '  false\n' +
+        ']'
+    )
+  });
 })

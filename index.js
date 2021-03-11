@@ -17,12 +17,13 @@ function prettifyObject(ast, indentLevel) {
     indentLevel++
     for (let i = 0; i < ast.children.length; i++) {
       const child = ast.children[i]
-      pretty += '\n' + _spaces(indentLevel) + child.raw
+      pretty += '\n' + _spaces(indentLevel)
 
-      if (child.value.type === 'Literal') {
-        pretty += child.raw
-      } else if (child.type === 'Object') {
+      // TODO: nested array
+      if (child.type === 'Object') {
         pretty += prettifyObject(child.value, indentLevel)
+      } else {
+        pretty += child.raw
       }
 
       const isLast = i === ast.children.length - 1
@@ -44,6 +45,7 @@ function prettifyObject(ast, indentLevel) {
     const child = ast.children[i]
     pretty += '\n' + _spaces(indentLevel) + child.key.raw + ': '
 
+    // TODO: null
     if (child.value.type === 'Literal') {
       pretty += child.value.raw
     } else if (child.value.type === 'Object') {

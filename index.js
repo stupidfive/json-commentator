@@ -12,6 +12,32 @@ export function comment(json) {
 }
 
 function prettifyObject(ast, indentLevel) {
+  if (ast.type === 'Array') {
+    let pretty = "["
+    indentLevel++
+    for (let i = 0; i < ast.children.length; i++) {
+      const child = ast.children[i]
+      pretty += '\n' + _spaces(indentLevel) + child.raw
+
+      if (child.value.type === 'Literal') {
+        pretty += child.raw
+      } else if (child.type === 'Object') {
+        pretty += prettifyObject(child.value, indentLevel)
+      }
+
+      const isLast = i === ast.children.length - 1
+      if (!isLast) {
+        pretty += ','
+      }
+    }
+    if (ast.children.length !== 0) {
+      pretty += "\n"
+    }
+    indentLevel--
+    pretty += _spaces(indentLevel) + ']'
+    return pretty
+  }
+
   let pretty = "{"
   indentLevel++
   for (let i = 0; i < ast.children.length; i++) {

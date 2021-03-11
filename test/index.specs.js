@@ -66,4 +66,14 @@ describe('Comment JSON', function () {
         '}'
     )
   });
+
+  it('should prettify array', () => {
+    assertComment(
+        '["a"]',
+        '' +
+        '[\n' +
+        '  "a"\n' +
+        ']'
+    )
+  });
 })

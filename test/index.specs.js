@@ -274,4 +274,38 @@ describe('Comment JSON', function () {
   ]
 }`)
   });
+
+  it('should comment at opening brace for object', () => {
+    const json = JSON.stringify({
+      a: 123
+    })
+    let commented = comment(json, (path) => {
+      if (path.join(',') === '') {
+        return 'alpha'
+      }
+      return null
+    });
+    expect(commented).to.equal(`{ // alpha
+  "a": 123
+}`)
+  });
+
+  it('should comment at opening brace for nested object', () => {
+    const json = JSON.stringify({
+      a: {
+        b: 123
+      }
+    })
+    let commented = comment(json, (path) => {
+      if (path.join(',').match('^a$')) {
+        return 'alpha'
+      }
+      return null
+    });
+    expect(commented).to.equal(`{
+  "a": { // alpha
+    "b": 123
+  }
+}`)
+  });
 })

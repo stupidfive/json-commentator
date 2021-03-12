@@ -34,6 +34,7 @@ function _prettifyArray(ast, indentLevel, path, rule) {
 
   const comment = rule(path, ast.value)
   if (comment != null) {
+    debugger
     pretty += ' // ' + comment
   }
 
@@ -54,6 +55,7 @@ function _prettifyArray(ast, indentLevel, path, rule) {
       let comment = rule(currentPath, child.value);
       if (comment != null) {
         if (child.type === 'Literal') {
+          debugger
           pretty += ' // ' + comment
         }
       }
@@ -72,6 +74,7 @@ function _prettyObject(ast, indentLevel, path, rule) {
 
   const comment = rule(path, ast.value)
   if (comment != null) {
+    debugger
     pretty += ' // ' + comment
   }
 
@@ -90,7 +93,11 @@ function _prettyObject(ast, indentLevel, path, rule) {
     // TODO: add comment
     const comment = rule(currentPath, child.value)
     if (comment != null) {
-      if (child.type === 'Literal' || child.type === 'Property' && child.value.type !== 'Array') {
+      if (child.type === 'Literal'
+          || (child.type === 'Property'
+              && child.value.type !== 'Array'
+              && child.value.type !== 'Object')) {
+        debugger
         pretty += ' // ' + comment
       }
     }

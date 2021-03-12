@@ -218,6 +218,10 @@ describe('Comment JSON', function () {
           'Damage resistance': 'Receives less physical damage',
           'Superhuman reflexes': 'High change of dodging attacks',
           'Immortality': 'Reborn after death',
+          'Heat Immunity': 'Immune to heat',
+          'Inferno': 'Heat damage to all enemies in the room',
+          'Teleportation': 'Teleport to any place during battle',
+          'Interdimensional travel': 'Fast travel to any beacon near a beacon',
         }
         if (value in map) {
           return map[value]
@@ -259,10 +263,10 @@ describe('Comment JSON', function () {
       "secretIdentity": "Unknown",
       "powers": [
         "Immortality", // Reborn after death
-        "Heat Immunity",
-        "Inferno",
-        "Teleportation",
-        "Interdimensional travel"
+        "Heat Immunity", // Immune to heat
+        "Inferno", // Heat damage to all enemies in the room
+        "Teleportation", // Teleport to any place during battle
+        "Interdimensional travel" // Fast travel to any beacon near a beacon
       ]
     }
   ]

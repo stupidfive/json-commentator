@@ -191,43 +191,37 @@ describe('Comment JSON', function () {
 }`
     const commented = comment(json, function (path, value) {
       const pathString = path.join(',')
-      if (pathString === 'squadName') {
-        return 'Name of the squad'
-      } else if (pathString === 'homeTown') {
-        return 'Where the squad is coming from'
-      } else if (pathString === 'formed') {
-        return 'Year when the squad is formed'
-      } else if (pathString === 'active') {
-        return 'Whether the squad is still active'
-      } else if (pathString === 'members') {
-        return 'Members of the squad'
-      } else if (pathString === 'members,0') {
-        return 'Leader of the squad'
-      } else if (pathString === 'members,0,name') {
-        return 'Name of the member'
-      } else if (pathString === 'members,0,age') {
-        return 'Age of the member'
-      } else if (pathString === 'members,0,secretIdentity') {
-        return 'Secret identity of the member'
-      } else if (pathString === 'members,0,powers') {
-        return 'Special powers of the member'
-      } else if (pathString.match(/^members,.*,powers,.*$/)) {
-        if (value === 'Radiation resistance') {
-          return 'Receives less damage from radiation'
-        } else if (value === 'Turning tiny') {
-          return 'Shrink in size drastically, harder to be spotted by the enemy'
-        } else if (value === 'Radiation blast') {
-          return 'A power blast that deal damage to enemies near him'
-        } else if (value === 'Million tonne punch') {
-          return 'Heavy punch that deals a lot of damage to one enemy'
-        } else if (value === 'Damage resistance') {
-          return 'Receives less physical damage'
-        } else if (value === 'Superhuman reflexes') {
-          return 'High change of dodging attacks'
-        } else if (value === 'Immortality') {
-          return 'Reborn after death'
+      const rules = [
+        ['^squadName$', 'Name of the squad'],
+        ['^homeTown$', 'Where the squad is coming from'],
+        ['^formed$', 'Year when the squad is formed'],
+        ['^active$', 'Whether the squad is still active'],
+        ['^members$', 'Members of the squad'],
+        ['^members,0$', 'Leader of the squad'],
+        ['^members,0,name$', 'Name of the member'],
+        ['^members,0,age$', 'Age of the member'],
+        ['^members,0,secretIdentity$', 'Secret identity of the member'],
+        ['^members,0,powers$', 'Special powers of the member'],
+      ]
+      for (const rule of rules) {
+        if (pathString.match(rule[0])) {
+          return rule[1]
         }
-        return null
+      }
+
+      if (pathString.match(/^members,.*,powers,.*$/)) {
+        const map = {
+          'Radiation resistance': 'Receives less damage from radiation',
+          'Turning tiny': 'Shrink in size drastically, harder to be spotted by the enemy',
+          'Radiation blast': 'A power blast that deal damage to enemies near him',
+          'Million tonne punch': 'Heavy punch that deals a lot of damage to one enemy',
+          'Damage resistance': 'Receives less physical damage',
+          'Superhuman reflexes': 'High change of dodging attacks',
+          'Immortality': 'Reborn after death',
+        }
+        if (value in map) {
+          return map[value]
+        }
       }
       return null
     })

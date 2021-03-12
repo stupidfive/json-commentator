@@ -103,7 +103,7 @@ const commentedJSON = comment(json, function (path, value) {
 
 It will generate the following output
 
-```json
+```jsonc
 {
   "squadName": "Super hero squad", // Name of the squad
   "homeTown": "Metro City", // Where the squad is coming from

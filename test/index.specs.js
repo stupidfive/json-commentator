@@ -146,4 +146,132 @@ describe('Comment JSON', function () {
         '}'
     )
   });
+
+  it('should add comment base on the rule', () => {
+    const json = `{
+  "squadName": "Super hero squad",
+  "homeTown": "Metro City",
+  "formed": 2016,
+  "secretBase": "Super tower",
+  "active": true,
+  "members": [
+    {
+      "name": "Molecule Man",
+      "age": 29,
+      "secretIdentity": "Dan Jukes",
+      "powers": [
+        "Radiation resistance",
+        "Turning tiny",
+        "Radiation blast"
+      ]
+    },
+    {
+      "name": "Madame Uppercut",
+      "age": 39,
+      "secretIdentity": "Jane Wilson",
+      "powers": [
+        "Million tonne punch",
+        "Damage resistance",
+        "Superhuman reflexes"
+      ]
+    },
+    {
+      "name": "Eternal Flame",
+      "age": 1000000,
+      "secretIdentity": "Unknown",
+      "powers": [
+        "Immortality",
+        "Heat Immunity",
+        "Inferno",
+        "Teleportation",
+        "Interdimensional travel"
+      ]
+    }
+  ]
+}`
+    const commented = comment(json, function (path, value) {
+      const pathString = path.join(',')
+      if (pathString === 'squadName') {
+        return 'Name of the squad'
+      } else if (pathString === 'homeTown') {
+        return 'Where the squad is coming from'
+      } else if (pathString === 'formed') {
+        return 'Year when the squad is formed'
+      } else if (pathString === 'active') {
+        return 'Whether the squad is still active'
+      } else if (pathString === 'members') {
+        return 'Members of the squad'
+      } else if (pathString === 'members,0') {
+        return 'Leader of the squad'
+      } else if (pathString === 'members,0,name') {
+        return 'Name of the member'
+      } else if (pathString === 'members,0,age') {
+        return 'Age of the member'
+      } else if (pathString === 'members,0,secretIdentity') {
+        return 'Secret identity of the member'
+      } else if (pathString === 'members,0,powers') {
+        return 'Special powers of the member'
+      } else if (pathString.match(/^members,.*,powers,.*$/)) {
+        if (value === 'Radiation resistance') {
+          return 'Receives less damage from radiation'
+        } else if (value === 'Turning tiny') {
+          return 'Shrink in size drastically, harder to be spotted by the enemy'
+        } else if (value === 'Radiation blast') {
+          return 'A power blast that deal damage to enemies near him'
+        } else if (value === 'Million tonne punch') {
+          return 'Heavy punch that deals a lot of damage to one enemy'
+        } else if (value === 'Damage resistance')  {
+          return 'Receives less physical damage'
+        } else if (value === 'Superhuman reflexes') {
+          return 'High change of dodging attacks'
+        } else if (value === 'Immortality') {
+          return 'Reborn after death'
+        }
+        return null
+      }
+      return null
+    })
+
+    expect(commented).to.equal(`{
+  "squadName": "Super hero squad", // Name of the squad
+  "homeTown": "Metro City", // Where the squad is coming from
+  "formed": 2016, // Year when the squad is formed
+  "secretBase": "Super tower",
+  "active": true, // Whether the squad is still active
+  "members": [ // Members of the squad
+    { // Leader of the squad
+      "name": "Molecule Man", // Name of the member
+      "age": 29, // Age of the member
+      "secretIdentity": "Dan Jukes", // Secret identity of the member
+      "powers": [ // Special powers of the member
+        "Radiation resistance", // Receives less damage from radiation
+        "Turning tiny", // Shrink in size drastically, harder to be spotted by the enemy
+        "Radiation blast" // A power blast that deal damage to enemies near him
+      ]
+    },
+    {
+      "name": "Madame Uppercut",
+      "age": 39,
+      "secretIdentity": "Jane Wilson",
+      "powers": [
+        "Million tonne punch", // Heavy punch that deals a lot of damage to one enemy
+        "Damage resistance", // Receives less physical damage
+        "Superhuman reflexes" // High change of dodging attacks
+      ]
+    },
+    {
+      "name": "Eternal Flame",
+      "age": 1000000,
+      "secretIdentity": "Unknown",
+      "powers": [
+        "Immortality", // Reborn after death
+        "Heat Immunity",
+        "Inferno",
+        "Teleportation",
+        "Interdimensional travel"
+      ]
+    }
+  ]
+}`)
+  });
 })

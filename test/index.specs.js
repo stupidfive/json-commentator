@@ -220,7 +220,7 @@ describe('Comment JSON', function () {
           return 'A power blast that deal damage to enemies near him'
         } else if (value === 'Million tonne punch') {
           return 'Heavy punch that deals a lot of damage to one enemy'
-        } else if (value === 'Damage resistance')  {
+        } else if (value === 'Damage resistance') {
           return 'Receives less physical damage'
         } else if (value === 'Superhuman reflexes') {
           return 'High change of dodging attacks'

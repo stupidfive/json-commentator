@@ -11,7 +11,6 @@ export function comment(json, rule = () => null) {
 
 function _prettify(ast, indentLevel, path = [], rule) {
   if (ast.type === 'Literal') {
-    // TODO: add comment
     return ast.raw
   } else if (ast.type === 'Array') {
     return _prettifyArray(ast, indentLevel, path, rule)
@@ -49,7 +48,6 @@ function _prettifyArray(ast, indentLevel, path, rule) {
       pretty += ','
     }
 
-    // TODO: extract comment
     if (rule != null) {
       let comment = rule(currentPath, child.value);
       if (comment != null) {
@@ -87,7 +85,6 @@ function _prettyObject(ast, indentLevel, path, rule) {
       pretty += ','
     }
 
-    // TODO: add comment
     const comment = rule(currentPath, child.value)
     if (comment != null) {
       if (child.type === 'Literal'

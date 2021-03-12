@@ -308,4 +308,28 @@ describe('Comment JSON', function () {
   }
 }`)
   });
+
+  it('should comment object property in array', () => {
+    const json = JSON.stringify({
+      a: [
+        {
+          b: 1,
+        },
+      ]
+    })
+
+    const commented = comment(json, (path) => {
+      if (path.join(',').match('a,\\d+,b')) {
+        return 'beta'
+      }
+      return null
+    })
+    expect(commented).to.equal(`{
+  "a": [
+    {
+      "b": 1 // beta
+    }
+  ]
+}`)
+  });
 })
